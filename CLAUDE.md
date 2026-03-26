@@ -23,38 +23,35 @@ The agent interprets natural-language queries about biological processes, maps t
 
 ```
 bioinformatic_agent/
-├── CLAUDE.md                ← THIS FILE — project brain
+├── CLAUDE.md                ← THIS FILE — development constraints & architecture
+├── SKILL.md                 ← AI behavior & prompt logic (Anthropic Skills standard)
 ├── README.md                ← human-facing quickstart
 ├── .env                     ← GOOGLE_API_KEY (gitignored)
 ├── .gitignore
 │
 ├── tools/                   ← all agent tools + orchestrator
-│   ├── main.py              ← Gemini orchestrator (manual ReAct loop)
-│   ├── mcp_server.py        ← MCP server (Claude orchestrates the same tools)
-│   ├── ontology_mapper.py   ← term → GO ID candidates (EBI OLS)
-│   ├── quickgo_client.py    ← GO ID → genes (QuickGO, manual evidence only)
-│   ├── kegg_client.py       ← term → genes (KEGG pathways → UniProt)
-│   ├── reactome_client.py   ← term → genes (Reactome pathways → UniProt)
-│   ├── msigdb_client.py     ← term → genes (MSigDB gene sets, GMT files)
-│   ├── format_gene_list.py  ← raw JSON dump → CSV (agent-discretion)
-│   ├── id_translator.py     ← UniProt → Entrez/Symbol/Ensembl (MyGene.info)
-│   ├── gdc_download.py      ← GDC Portal RNA-Seq download + metadata
-│   └── gdc_process.py       ← combine per-sample TSVs → expression matrix
+│   └── main.py              ← orchestrator (function-calling loop)
 │
 ├── data/                    ← all output data (gitignored)
-│   ├── .msigdb_cache/       ← cached MSigDB GMT files
-│   └── <term>/              ← per-query directories
-│       ├── raw/             ← timestamped JSON dumps
-│       ├── processed/       ← CSVs, expression matrices
-│       └── index.json       ← raw → processed file mapping
+│   ├── raw/                 ← timestamped JSON dumps
+│   └── index.json           ← raw → processed file mapping
 │
 ├── doc/                     ← documentation
-│   ├── system_prompt.md     ← LLM system instruction (loaded by main.py)
-│   ├── schemas.json         ← OpenAPI schemas for all 9 tools
-│   └── development_log.md   ← iteration-by-iteration build history
+│   ├── schemas.json         ← OpenAPI tool schemas
+│   └── development_log.md   ← iteration build history (gitignored)
 │
-└── venv/                    ← UV-managed virtual environment (Python 3.13)
+└── venv/                    ← UV-managed virtual environment (git tracks pyproject.toml, ignores .venv)
 ```
+
+---
+
+## Project Safety & Initialization Rules
+
+When working on this project or bootstrapping a **new** bioinformatic agent project, the following rules are non-negotiable to prevent data loss:
+
+1. **Protect Untracked AI Assets**: The file `doc/development_log.md` is strictly **gitignored** to keep AI conversation history private. Because it is unversioned, **never run `git clean -fd`, `git reset --hard` followed by untracked directory deletions (`rm -rf`), or overarching folder moves** without first backing up `doc/development_log.md`, `data/`, and `.env`.
+2. **Environment Tracking**: Never commit the Python virtual environment binaries (`.venv/`). Instead, if using [uv](https://docs.astral.sh/uv/), commit `venv/pyproject.toml` and `venv/uv.lock` so the environment can be faithfully reproduced by others via `uv sync`.
+3. **Flat Directory Principle**: Avoid nesting the agent tools deeply inside subdirectories. Retain a flat `./tools/` structure at the repository root to ensure Python imports and `PYTHONPATH` resolve flawlessly without complex configuration.
 
 ---
 
