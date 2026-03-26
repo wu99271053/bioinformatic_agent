@@ -38,4 +38,3 @@ python -m tools.main
 - **[CLAUDE.md](CLAUDE.md)** — full project manual (architecture, conventions, roadmap)
 - **[doc/system_prompt.md](doc/system_prompt.md)** — LLM system instruction
 - **[doc/schemas.json](doc/schemas.json)** — tool schemas
-- **[doc/development_log.md](doc/development_log.md)** — iteration history
