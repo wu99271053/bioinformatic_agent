@@ -1,6 +1,9 @@
 # Secrets
 .env
 
+# Private development compartment (dev brain, logs, notes — never published)
+.private/
+
 # Data (raw dumps, processed outputs, caches)
 data/
 

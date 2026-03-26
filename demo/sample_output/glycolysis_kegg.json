@@ -1,0 +1,74 @@
+[
+  {
+    "gene_id": "UniProtKB:P04406",
+    "gene_symbol": "GAPDH",
+    "description": "Glyceraldehyde-3-phosphate dehydrogenase",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P00558",
+    "gene_symbol": "PGK1",
+    "description": "Phosphoglycerate kinase 1",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P15259",
+    "gene_symbol": "PGAM2",
+    "description": "Phosphoglycerate mutase 2",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P06733",
+    "gene_symbol": "ENO1",
+    "description": "Alpha-enolase",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P14618",
+    "gene_symbol": "PKM",
+    "description": "Pyruvate kinase PKM",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P04075",
+    "gene_symbol": "ALDOA",
+    "description": "Fructose-bisphosphate aldolase A",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P60174",
+    "gene_symbol": "TPI1",
+    "description": "Triosephosphate isomerase",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P16118",
+    "gene_symbol": "PFKFB3",
+    "description": "6-phosphofructo-2-kinase/fructose-2,6-bisphosphatase 3",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P17858",
+    "gene_symbol": "PFKL",
+    "description": "ATP-dependent 6-phosphofructokinase, liver type",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P19367",
+    "gene_symbol": "HK1",
+    "description": "Hexokinase-1",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P52789",
+    "gene_symbol": "HK2",
+    "description": "Hexokinase-2",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  },
+  {
+    "gene_id": "UniProtKB:P06744",
+    "gene_symbol": "GPI",
+    "description": "Glucose-6-phosphate isomerase",
+    "evidence_used": "KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)"
+  }
+]

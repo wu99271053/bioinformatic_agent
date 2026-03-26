@@ -1,0 +1,13 @@
+gene_id,gene_symbol,description,evidence_used
+UniProtKB:P04406,GAPDH,Glyceraldehyde-3-phosphate dehydrogenase,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P00558,PGK1,Phosphoglycerate kinase 1,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P15259,PGAM2,Phosphoglycerate mutase 2,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P06733,ENO1,Alpha-enolase,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P14618,PKM,Pyruvate kinase PKM,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P04075,ALDOA,Fructose-bisphosphate aldolase A,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P60174,TPI1,Triosephosphate isomerase,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P16118,PFKFB3,6-phosphofructo-2-kinase/fructose-2,6-bisphosphatase 3,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P17858,PFKL,ATP-dependent 6-phosphofructokinase liver type,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P19367,HK1,Hexokinase-1,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P52789,HK2,Hexokinase-2,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)
+UniProtKB:P06744,GPI,Glucose-6-phosphate isomerase,KEGG pathway hsa00010 (Glycolysis / Gluconeogenesis)

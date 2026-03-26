@@ -1,0 +1,21 @@
+# Example queries for the bioinformatic agent
+# Run with: python -m tools.main
+# Then paste any query below at the prompt.
+
+# --- Gene retrieval ---
+Find all genes involved in glycolysis.
+What genes are annotated to apoptosis in QuickGO?
+Retrieve genes from the one carbon metabolism pathway using KEGG and Reactome.
+Get the Hallmark apoptosis gene set from MSigDB.
+
+# --- ID translation ---
+Translate these UniProt IDs to gene symbols: UniProtKB:P04818, UniProtKB:P11586, UniProtKB:P00558
+
+# --- Disease bridge ---
+Which diseases are associated with the glycolysis genes HK2, PKM, and ENO1?
+Find liver cancer genes via OpenTargets and cross-reference with TCGA-LIHC.
+
+# --- GDC pipeline ---
+Search for liver cancer projects in GDC.
+What RNA-Seq data is available for TCGA-LIHC?
+Download metadata for TCGA-LIHC RNA-Seq files.

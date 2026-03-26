@@ -19,7 +19,7 @@ Configure in Claude Code (.claude/settings.json):
         "bioinformatic-agent": {
           "command": "/absolute/path/to/venv/.venv/bin/python",
           "args": ["-m", "tools.mcp_server"],
-          "cwd": "/absolute/path/to/bioinformatic_agent"
+          "cwd": "/absolute/path/to/bioinfo_routing_agent"
         }
       }
     }
