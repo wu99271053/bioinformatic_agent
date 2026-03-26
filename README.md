@@ -1,4 +1,4 @@
-# Bioinformatic Agent
+# Data Retrieval Agent
 
 An AI-powered routing agent that interprets biological queries and retrieves gene lists from multiple databases (QuickGO, KEGG, Reactome, MSigDB) with support for GDC RNA-Seq data download and processing.
 
