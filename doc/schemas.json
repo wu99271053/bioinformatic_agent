@@ -1,0 +1,258 @@
+{
+  "tools": [
+    {
+      "name": "map_term_to_ontology",
+      "description": "Queries the EMBL-EBI Ontology Lookup Service (OLS) to find candidate ontology IDs for a biological term. Review the returned list and select the most specific and accurate ID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "biology_term": {
+            "type": "string",
+            "description": "The clean biological term (e.g., 'one carbon metabolism')."
+          },
+          "ontology": {
+            "type": "string",
+            "description": "The specific ontology to search (default is 'go' for Gene Ontology)."
+          }
+        },
+        "required": ["biology_term"]
+      }
+    },
+    {
+      "name": "fetch_genes_by_go_term",
+      "description": "Fetch genes annotated to a GO term from QuickGO with strict manual evidence filtering (excludes IEA). Returns UniProtKB gene IDs with ECO evidence codes.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "go_id": {
+            "type": "string",
+            "description": "The Gene Ontology ID (e.g., 'GO:0006730')."
+          },
+          "taxon_id": {
+            "type": "string",
+            "description": "NCBI taxon ID (default: '9606' for Homo sapiens)."
+          }
+        },
+        "required": ["go_id"]
+      }
+    },
+    {
+      "name": "fetch_genes_from_kegg",
+      "description": "Fetch genes from KEGG pathways matching a biological term. Three-step: keyword search → gene IDs → UniProt conversion. Returns UniProtKB IDs. Use the biology term label from map_term_to_ontology, not the GO ID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "biology_term": {
+            "type": "string",
+            "description": "Human-readable biological process name (e.g. 'glycolysis'). Use the label returned by map_term_to_ontology."
+          },
+          "organism": {
+            "type": "string",
+            "description": "KEGG organism code (default: 'hsa' for Homo sapiens)."
+          }
+        },
+        "required": ["biology_term"]
+      }
+    },
+    {
+      "name": "fetch_genes_from_reactome",
+      "description": "Fetch genes from Reactome pathways matching a biological term. Uses a two-step search (pathway lookup then participant extraction). Returns UniProtKB gene IDs. Use the biology term label from map_term_to_ontology, not the GO ID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "biology_term": {
+            "type": "string",
+            "description": "Human-readable biological process name (e.g. 'glycolysis'). Use the label returned by map_term_to_ontology."
+          },
+          "taxon_id": {
+            "type": "string",
+            "description": "NCBI taxon ID (default: '9606' for Homo sapiens)."
+          }
+        },
+        "required": ["biology_term"]
+      }
+    },
+    {
+      "name": "fetch_genes_from_msigdb",
+      "description": "Fetch genes from MSigDB gene sets matching a biological term. Downloads and caches GMT files from the Broad Institute, searches gene set names by keyword, and returns the union of genes from all matching sets. Returns HGNC gene symbols. Use the biology term label from map_term_to_ontology, not the GO ID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "biology_term": {
+            "type": "string",
+            "description": "Human-readable biological process name (e.g. 'glycolysis'). Use the label returned by map_term_to_ontology."
+          },
+          "collection": {
+            "type": "string",
+            "description": "MSigDB collection code (default: 'H' = Hallmark). Options: H, C1, C2, C3, C4, C5, C6, C7, C8."
+          }
+        },
+        "required": ["biology_term"]
+      }
+    },
+    {
+      "name": "format_gene_list",
+      "description": "Converts a raw gene JSON dump (already saved to disk by the agent) into a clean CSV file in the processed/ folder. Call this when the user wants CSV output — it is not required after every fetch. Pass the raw_dump_path value returned by any fetch tool.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input_path": {
+            "type": "string",
+            "description": "Absolute path to the raw JSON dump file (the raw_dump_path returned by a fetch tool response)."
+          },
+          "output_filename": {
+            "type": "string",
+            "description": "Optional output CSV filename. Defaults to the raw file base name with a .csv extension."
+          }
+        },
+        "required": ["input_path"]
+      }
+    },
+    {
+      "name": "translate_gene_ids",
+      "description": "Translates UniProtKB gene IDs to another namespace using MyGene.info. Covers non-protein-coding genes. Primary use: convert UniProtKB accessions to NCBI Entrez Gene IDs.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "gene_ids": {
+            "type": "array",
+            "description": "List of UniProtKB gene ID strings (e.g. ['UniProtKB:P04818', 'UniProtKB:P11586']).",
+            "items": { "type": "string" }
+          },
+          "to_format": {
+            "type": "string",
+            "description": "Target field (default: 'entrezgene'). Other options: 'symbol', 'ensembl'."
+          }
+        },
+        "required": ["gene_ids"]
+      }
+    },
+    {
+      "name": "download_gdc_data",
+      "description": "Download data from the GDC Portal via REST API. Fetches metadata, generates manifest, and downloads files. Supports mRNA, miRNA, CNV, etc. Use metadata_only=true to inspect first. The human user should provide data_type and experimental_strategy values — check GDC docs for valid combinations.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "The GDC Project ID (e.g., 'TCGA-LIHC')."
+          },
+          "data_type": {
+            "type": "string",
+            "description": "GDC data type (default: 'Gene Expression Quantification'). Also: 'miRNA Expression Quantification', 'Copy Number Segment', etc."
+          },
+          "experimental_strategy": {
+            "type": "string",
+            "description": "Experimental strategy (default: 'RNA-Seq'). Also: 'miRNA-Seq', 'WXS', 'WGS', 'Methylation Array', etc."
+          },
+          "access": {
+            "type": "string",
+            "description": "Access level filter (default: 'open'). Use 'open' for public data."
+          },
+          "extra_fields": {
+            "type": "array",
+            "description": "Additional GDC metadata fields to fetch (e.g. ['cases.diagnoses.tumor_stage']).",
+            "items": { "type": "string" }
+          },
+          "metadata_only": {
+            "type": "boolean",
+            "description": "If true, fetch metadata only — skip download."
+          }
+        },
+        "required": ["project_id"]
+      }
+    },
+    {
+      "name": "query_opentargets",
+      "description": "Find diseases associated with one or more genes via the OpenTargets Platform. Accepts HGNC gene symbols and resolves them to Ensembl IDs internally. Returns scored gene-disease associations with evidence from multiple sources. Use this to bridge genes to diseases — do not guess disease associations from memory.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "gene_symbols": {
+            "type": "array",
+            "description": "List of HGNC gene symbols (e.g. ['TP53', 'HK2', 'PKM']).",
+            "items": { "type": "string" }
+          },
+          "disease_filter": {
+            "type": "string",
+            "description": "Optional keyword to filter diseases (e.g. 'cancer', 'carcinoma', 'liver'). Case-insensitive."
+          },
+          "max_diseases": {
+            "type": "integer",
+            "description": "Max diseases per gene (default: 10)."
+          }
+        },
+        "required": ["gene_symbols"]
+      }
+    },
+    {
+      "name": "query_disease_genes",
+      "description": "Find genes associated with a disease via OpenTargets, then intersect with your gene list. PREFERRED over query_opentargets when comparing a gene list against a disease — makes only 1 API call instead of N. Returns the disease's top genes AND which of your genes are implicated.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "disease_term": {
+            "type": "string",
+            "description": "Disease or cancer name (e.g. 'brain tumor', 'hepatocellular carcinoma', 'breast cancer')."
+          },
+          "gene_list": {
+            "type": "array",
+            "description": "Optional list of HGNC gene symbols to intersect with.",
+            "items": { "type": "string" }
+          },
+          "max_genes": {
+            "type": "integer",
+            "description": "Max disease-associated genes to fetch (default: 500)."
+          }
+        },
+        "required": ["disease_term"]
+      }
+    },
+    {
+      "name": "explore_gdc_projects",
+      "description": "Search GDC for projects matching a keyword. Searches across project_id, name, disease_type, and primary_site. Returns matching projects with case counts and data categories. Always use this to find project IDs instead of guessing from memory.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "description": "Search term (e.g. 'liver cancer', 'breast', 'melanoma', 'lung adenocarcinoma')."
+          }
+        },
+        "required": ["keyword"]
+      }
+    },
+    {
+      "name": "explore_gdc_data_types",
+      "description": "List all available data types and file counts for a specific GDC project. Use this to see what data is available before downloading (e.g. mRNA, miRNA, CNV, methylation).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "The GDC Project ID (e.g., 'TCGA-LIHC')."
+          }
+        },
+        "required": ["project_id"]
+      }
+    },
+    {
+      "name": "process_gdc_data",
+      "description": "Combine downloaded GDC expression files into a single matrix (features × samples). Supports both mRNA and miRNA formats — auto-detects from column headers. Returns paths to the expression matrix and sample sheet.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "The GDC Project ID (e.g., 'TCGA-LIHC'). Must match a previously downloaded project."
+          },
+          "metric": {
+            "type": "string",
+            "description": "Expression metric to extract (default: 'tpm_unstranded'). mRNA options: unstranded, stranded_first, stranded_second, tpm_unstranded, fpkm_unstranded, fpkm_uq_unstranded. miRNA options: read_count, reads_per_million_miRNA_mapped."
+          }
+        },
+        "required": ["project_id"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+# Secrets
+.env
+
+# Data (raw dumps, processed outputs, caches)
+data/
+
+# Virtual environment files (UV)
+venv/.venv/
+venv/.git/
+venv/.gitignore
+venv/.python-version
+
+# Documentation
+doc/development_log.md
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# Binaries
+tools/gdc-client
